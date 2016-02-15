@@ -1,0 +1,61 @@
+swagger: "2.0"
+info:
+ description: |
+   This a sample API to be used in M4U Java Recruitment
+
+ version: "1.0.0"
+ title: M4U Java Recruitment
+ termsOfService: http://www.m4u.com.br/terms/
+ contact:
+   name: rh@m4u.com.br
+ license:
+   name: Apache 2.0
+   url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: recruitment.m4u.com.br
+basePath: /api/v1
+schemes:
+ - http
+paths:
+ /sms:
+   put:
+     summary: Sends a sms
+     operationId: sendSMS
+     consumes:
+       - application/json
+       - application/xml
+     produces:
+       - application/json
+       - application/xml
+     parameters:
+       - in: body
+         name: sms
+         description: SMS details
+         required: true
+         schema:
+           $ref: "#/definitions/Sms"
+     responses:
+       "201":
+         description: Sms sent
+       "500":
+         description: Internal Server Error
+       "405":
+         description: Validation exception
+       "404":
+         description: Mobile User not found
+
+definitions:
+ Sms:
+   properties:
+     id:
+       type: integer
+       format: int64
+       description: Message's Identifier
+     from:
+       type: string
+       description: Message's sender
+     to:
+       type: string
+       description: Message's destination
+     body:
+       type: string
+       description: Message's body
